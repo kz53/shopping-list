@@ -11,12 +11,30 @@
 <br>
 <br>
 <button (click)="onIndex()" >index</button> 
-<button (click)="onShow()" >show</button>
+<br>
+<button (click)="onShow()" >show</button><input type="text" [(ngModel)]="show_article_id" placeholder="Article ID">
+<br>
 <button (click)="onEdit()" >edit</button>
+<div style="display:inline;" *ngIf="this.edit_visible"> 
+    <input type="text" placeholder="Article ID" [(ngModel)]="edit_article_id">
+    <input type="text" placeholder="Title" [(ngModel)]="edit_title">
+    <input type="text" placeholder="Text" [(ngModel)]="edit_text">
+</div>
+<br>
+<button (click)="onUpdate()" [disabled] = "enable_update">update</button>
+<br>
 <button (click)="onNew()" >new</button>
-<button (click)="onCreate()" >create</button>
-<button (click)="onUpdate()" >update</button>
-<button (click)="onDestroy()" >destroy</button>
+<div style="display:inline;" *ngIf="this.new_visible"> 
+    <input type="text" placeholder="Title" [(ngModel)]="new_title">
+    <input type="text" placeholder="Text" [(ngModel)]="new_text">
+</div>
+<br>
+<button (click)="onCreate()" [disabled] = "enable_create">create</button>
+<br>
+<button (click)="onDestroy()">destroy</button>
+<div style="display:inline;"> 
+    <input type="text" placeholder="Article ID" [(ngModel)]="destroy_article_id">
+</div>
 <div>
     <ul>
         <li *ngFor="let item of food_item_list">
@@ -29,3 +47,9 @@
 <div style="border: 2px dashed black;" *ngFor="let item of food_item_list">
     {{ item.name }}
 </div>
+
+<!-- <form method="post" accept-charset="UTF-8" action="http://localhost:3000/articles">
+    <input type="text" name="article[title]" value="rrrrrr">
+    <textarea name="article[text]" value="rrrrrr"></textarea>
+    <input type="submit" name="commit"  value="Create Article">
+</form> -->
