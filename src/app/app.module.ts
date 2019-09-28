@@ -3,12 +3,14 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TextBoxComponent } from './text-box/text-box.component';
+import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TextBoxComponent
+    TextBoxComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,92 @@
+@font-face {
+    font-family: skfChevinLight;
+    src: url("/../assets/Chevin Light.otf") format("opentype");
+}
+
+@keyframes hamburger-menu-slide {
+    from {bottom: 70px; opacity: 0;}
+    to {bottom: 0px;}
+}
+
+@keyframes hamburger-menu-hide {
+    from {bottom: 0px;}
+    to {bottom: 70px; opacity: .25;}
+}
+
+.links {
+    position: absolute;
+    
+
+}
+
+.header-links {
+    color: #5e5e5e;
+    font-family: skfChevinLight;
+    font-size: 18px;
+}
+
+.header-links:hover {
+    color: #5e5e5e;
+    font-family: skfChevinLight;
+    font-size: 18px;
+    opacity: .7;
+    text-decoration: none;
+}
+
+.hamburger-menu-item:hover {
+    opacity: .5;
+    cursor: pointer;
+}
+
+.links > a:link {
+    color: #5e5e5e;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+
+}
+
+.header-links-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.links-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items:baseline;
+    text-align: left;
+    cursor: pointer;
+}
+
+.hamburger-button {
+    cursor: pointer;
+}
+
+.hamburger-button:hover {
+    opacity: 0.7;
+}
+
+.menu-show {
+    display: block;
+    position: relative;
+    animation-name: hamburger-menu-slide;
+    animation-duration: .5s;
+}
+
+.menu-hide {
+    display: block;
+    position: relative;
+    bottom: 75px;
+    animation-name: hamburger-menu-hide;
+    animation-duration:.5s;
+
+}

@@ -10,10 +10,41 @@
 <button (click)="onClickAdd()" >add</button>
 <br>
 <br>
-<button (click)="onIndex()" >index</button> 
+<div style="display: flex;">
+    <div style="margin-right: 0px; width: 170px;">
+        <button (click)="onIndex()" >index</button>
+    </div>
+    <div style="border: 1px solid #dddddd; height: 200px; width:400px; overflow: scroll; position:relative; left: 100px;">
+        <ul>
+            <li *ngFor="let article of article_master_list">
+                {{article.id}}. {{article.title}}
+            </li>
+        </ul>
+    </div>
+</div>
+
 <br>
-<button (click)="onShow()" >show</button><input type="text" [(ngModel)]="show_article_id" placeholder="Article ID">
 <br>
+<br>
+
+<div style="display: flex;">
+    <div style="margin-right: 0px; width: 170px;">
+        <button (click)="onShow()" >show</button><input type="text" [(ngModel)]="show_article_id" placeholder="Article ID">
+    </div>
+    <div style="border: 1px solid #dddddd; height: 200px; width:400px; overflow: scroll; position:relative; left: 100px;">
+        <ul>
+            <div *ngIf="article_in_show != null">
+                <b>{{article_in_show.title}}:</b> 
+                <br>
+                {{article_in_show.text}}
+            </div>
+        </ul>
+    </div>
+</div>
+
+<br>
+<br>
+
 <button (click)="onEdit()" >edit</button>
 <div style="display:inline;" *ngIf="this.edit_visible"> 
     <input type="text" placeholder="Article ID" [(ngModel)]="edit_article_id">

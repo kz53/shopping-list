@@ -1,0 +1,61 @@
+<div class="container" style="margin: 0px !important; padding: 0px !important; max-width: 100% ;">
+    <!-- standard header -->
+    <div class="row header-container" style="margin: 0px; padding: 0px;" >
+        <div class="col-sm-1 d-none d-md-block" style="margin: 0px; padding: 0px;"><img src="/../assets/logo-good.png" style="height:70px;"></div>
+        <div class="col-sm-11 d-none d-md-block" style="z-index: -1; padding: 0px;">
+            <div style="z-index: -1; background-color:#0f58d6; margin: 0px; padding: 0px; height:25px;">.</div>
+            <div style="z-index: -1; background-color:white; margin: 0px; padding: 0px; height:10px;">.</div>
+        </div>   
+    </div>
+
+    <!-- miniheader -->
+    <div class="row container-fluid d-block d-md-none topbar" style="z-index: 2; margin:0px; padding: 0px; position: absolute;">
+        <div class="col-xs-12 " id="top-banner" style="height:40px; z-index:4; margin: 0px; padding: 0px; background-color: #0f58d6; border-bottom: 2px red solid;">
+            <img style="z-index:3; height: 90%; margin:auto;" src="/../assets/logo-good.png" >
+            <div id="hamburger-button" (click)="toggleHamburger()" class="col-xs-1 hamburger-button" style=" border-radius: 3px; width: 5%; margin-right: 15x; margin-top:2px; float:right;">
+                <img src="/../assets/three-lines-white.png" width="60%" style="margin: 20%;">
+            </div>
+        </div>
+        <div id="hamburger-menu" [className]="menuClass" style="padding-left: 10px; float:right; width:20%; z-index: -1; background: #0f58d6; color: white; " >
+            <div class="hamburger-menu-item">
+                <a class="header-links" routerLink="./home" style="color:white; font-size:15px">HOME</a>
+            </div>
+            <div class="hamburger-menu-item">
+                <a class="header-links" routerLink="./test" style="color:white; font-size:15px">TEST</a> 
+            </div>
+            <div class="hamburger-menu-item">
+                <a class="header-links" routerLink="./test" style="color:white; font-size:15px">API CALL</a> 
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-11 d-none d-md-block" style="position: relative;  ">
+
+        <div class="links-container links" >
+            <a routerLink="./home"><img src="/../assets/globe-blue.png" style="height:15px; padding-right: 5px;">Home</a> <span style="color:#dddddd;"> &nbsp; | &nbsp; </span> 
+            <img src="/../assets/person-blue.png" style="height:15px; padding-right: 5px;">
+            <a routerLink="./test">Test</a> <span style="color:#dddddd;"> &nbsp; | &nbsp; </span> 
+            <img src="/../assets/pencil-blue.png" style="height:15px; padding-right: 5px;">
+            <a routerLink="./test">API Call</a>    
+        </div>   
+        <br>
+        <div>
+            <div class="links-container links " >
+                <span class="header-links">HEADER</span> <span style="color:#dddddd; margin: 2px;"> &nbsp; | &nbsp; </span>
+                <a class="header-links" routerLink="./home">HOME</a> <span style="color:#dddddd; margin: 2px;"> &nbsp; | &nbsp; </span> 
+                <a class="header-links" routerLink="./test">TEST</a> <span style="color:#dddddd; margin: 2px;"> &nbsp; | &nbsp; </span> 
+                <a class="header-links" routerLink="./test">API CALL</a>    
+            </div>
+        </div>
+        
+    </div>
+
+    
+    
+</div>
+
+<br>
+<br>
+
+ 

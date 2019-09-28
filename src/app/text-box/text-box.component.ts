@@ -11,6 +11,9 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./text-box.component.css']
 })
 export class TextBoxComponent implements OnInit {
+  article_master_list;
+  article_in_show;
+
   new_food_name = "";
   food_item_list: FoodItem[];
   rand_data: string;
@@ -51,6 +54,8 @@ export class TextBoxComponent implements OnInit {
     this.http.get('http://localhost:3000/articles/')
              .subscribe(res => {
                console.log(res);
+               console.log(typeof(res));
+               this.article_master_list = res;
              });
   }
 
@@ -58,6 +63,8 @@ export class TextBoxComponent implements OnInit {
     this.http.get(`http://localhost:3000/articles/${this.show_article_id}`  )
              .subscribe(res => {
                console.log(res);
+               console.log(typeof(res));
+               this.article_in_show= res;
              });
   }
 
