@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FoodItem } from '../food-item';
-import { MOCKFOODLIST} from '../mock-food-list'
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -14,8 +12,6 @@ export class TextBoxComponent implements OnInit {
   article_master_list;
   article_in_show;
 
-  new_food_name = "";
-  food_item_list: FoodItem[];
   rand_data: string;
   show_article_id: number;
   edit_visible: boolean = true;
@@ -35,20 +31,8 @@ export class TextBoxComponent implements OnInit {
   constructor(private http: HttpClient){}
 
   ngOnInit() {
-    this.food_item_list = MOCKFOODLIST;
 
   }
-
-  onClickDelete(){
-    this.food_item_list.pop();
-  }
-
-  onClickAdd(){
-    let x = {name: this.new_food_name, is_perishable: true, have_or_not_bool: false};
-    this.food_item_list.push(x);
-    this.new_food_name = "";
-  }
-
 
   onIndex(){
     this.http.get('http://localhost:3000/articles/')

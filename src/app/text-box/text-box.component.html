@@ -1,13 +1,6 @@
 <p>text-box works!</p>
 
-<button (click)="onClickDelete()" >delete</button>
-<br>
-<br>
 
-<input [(ngModel)]="new_food_name">
-<br>
-<br>
-<button (click)="onClickAdd()" >add</button>
 <br>
 <br>
 <div style="display: flex;">
@@ -66,18 +59,7 @@
 <div style="display:inline;"> 
     <input type="text" placeholder="Article ID" [(ngModel)]="destroy_article_id">
 </div>
-<div>
-    <ul>
-        <li *ngFor="let item of food_item_list">
-            {{ item.name }}
-        </li>
-    </ul>
 
-</div>
-
-<div style="border: 2px dashed black;" *ngFor="let item of food_item_list">
-    {{ item.name }}
-</div>
 
 <!-- <form method="post" accept-charset="UTF-8" action="http://localhost:3000/articles">
     <input type="text" name="article[title]" value="rrrrrr">

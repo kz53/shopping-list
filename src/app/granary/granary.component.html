@@ -1,0 +1,21 @@
+<br>
+<br>
+
+<input [(ngModel)]="new_food_name">
+<br>
+<br>
+<button (click)="onClickAdd()" >add</button>
+<button (click)="onClickDelete()" >delete</button>
+
+<div>
+    <ul>
+        <li *ngFor="let item of food_item_list">
+            {{ item.name }}
+        </li>
+    </ul>
+
+</div>
+
+<div style="border: 2px dashed black;" *ngFor="let item of food_item_list">
+    {{ item.name }}
+</div>
