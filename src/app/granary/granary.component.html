@@ -1,21 +1,18 @@
 <br>
 <br>
 
-<input [(ngModel)]="new_food_name">
+<input [(ngModel)]="foodTextBox" ng-submit="onClickAdd()" (keyup.enter)="onClickAdd()">
+
 <br>
 <br>
 <button (click)="onClickAdd()" >add</button>
 <button (click)="onClickDelete()" >delete</button>
 
-<div>
+<div style="border: 2px dashed black;">
     <ul>
-        <li *ngFor="let item of food_item_list">
-            {{ item.name }}
+        <li *ngFor="let item of foodNameArray">
+            {{ item }}
         </li>
     </ul>
 
-</div>
-
-<div style="border: 2px dashed black;" *ngFor="let item of food_item_list">
-    {{ item.name }}
 </div>
