@@ -13,23 +13,50 @@ export class GranaryComponent implements OnInit {
   foodNameArray = [];
   foodTextBox = "";
 
+  wishListSet = new Set();
+  wishListArray = [];
+  wishListTextBox = "";
 
   constructor(private http:HttpClient) { }
 
   ngOnInit() {
     this.onIndex();
-    // let x = {name: this.new_food_name, is_perishable: true, have_or_not_bool: false};
-    // this.food_item_list.push(x);
-    
-    // this.onCreate();
+  }
 
+  onIndex(){
+    this.http.get<any[]>('http://localhost:3000/granary/')
+    .subscribe(res => {
+       console.log(res);
+       console.log(typeof(res));
+       // this.food_item_list = res;
+       res.forEach(x => {
+         if (x.wanted == true ) {
+           this.wishListSet.add(x.name);
+           this.wishListArray.push(x.name); 
+           console.log(this.wishListArray);
+         }
+         if (x.quantity > 0) {
+           this.foodNameSet.add(x.name);
+           this.foodNameArray.push(x.name); 
+           console.log(this.foodNameArray);
+         }     
+       });
+    });
+  }
+
+  onClickAdd(){
+    if(!this.foodNameSet.has(this.foodTextBox) && this.foodTextBox != ""){
+      this.updateFoodItemQuantity(this.foodTextBox, 1);
+    }
+    else {
+      console.log("already in there");
+    }
+    this.foodTextBox = "";
   }
 
   onClickDelete(){
-    // this.food_item_list.pop();
-    // this.food_set.delete()
     if(this.foodNameSet.has(this.foodTextBox)){
-      this.deleteFoodItemFromDatabase(this.foodTextBox);
+      this.updateFoodItemQuantity(this.foodTextBox, 0);
       console.log("removed ");
     }
     else {
@@ -38,27 +65,77 @@ export class GranaryComponent implements OnInit {
     this.foodTextBox = "";
   } 
 
-  onClickAdd(){
-    if(!this.foodNameSet.has(this.foodTextBox) && this.foodTextBox != ""){
-      this.addFoodItemToDatabase(this.foodTextBox);
-    }
+  onClickWishListAdd(){
+    if(!this.wishListSet.has(this.wishListTextBox) && this.wishListTextBox != ""){
+      this.updateFoodItemWanted(this.wishListTextBox, true);
+    } 
     else {
       console.log("already in there");
     }
-    this.foodTextBox = "";
+    this.wishListTextBox = "";
   }
 
-  addFoodItemToDatabase(foodName: string){
+  onClickWishListDelete(){
+    if(this.wishListSet.has(this.wishListTextBox)){
+      this.updateFoodItemWanted(this.wishListTextBox, false);
+      console.log("removed ");
+    }
+    else {
+      console.log("not in there buddy");
+    }
+    this.wishListTextBox = "";
+  }
+
+  // addFoodItem(name, 1)
+  // deleteFoodItem(name, 0) 
+  // addWishList(name, true)
+  // deleteWishlist(name, false)
+  //
+
+  updateFoodItemQuantity(foodName: string, quantity: number){
+    this.http.put(`http://localhost:3000/granary/${foodName}`, {name: foodName, quantity: quantity})
+    .subscribe(res => {
+      console.log('returned');
+      console.log(res);
+      if (quantity >= 1 ) {
+        this.addFoodItemToDisplay(foodName);
+      } else {
+        this.deleteFoodItemFromDisplay(foodName);
+      }
+      
+    });
+  }
+
+  updateFoodItemWanted(foodName: string, wanted: boolean){
+    this.http.put(`http://localhost:3000/granary/${foodName}`, {name: foodName, wanted: wanted})
+    .subscribe(res => {
+      console.log('returned');
+      console.log(res);
+      if(wanted){
+        this.addFoodItemToWishList(foodName);
+      } else {
+        this.deleteFoodItemFromWishList(foodName);
+      }
+      
+    });
+  }
+
+
+  addFoodItemToDatabase(foodName: string, quantity: number, wanted: boolean){
     //this.http.post('http://localhost:3000/articles', this.myForm.getRawValue())
     let newFoodItem = new FoodItem();
     newFoodItem.isPerishable = true;
     newFoodItem.have = true;
     newFoodItem.name = foodName; 
-    this.http.post('http://localhost:3000/granary', {name: newFoodItem.name, quantity: 1})
+    this.http.put('http://localhost:3000/granary', {name: newFoodItem.name, quantity: quantity, wanted: wanted})
              .subscribe(res => {
                console.log('returned');
                console.log(res);
-               this.addFoodItemToDisplay(foodName);
+               if (wanted){
+                 this.addFoodItemToWishList(foodName);
+               } else {
+                 this.addFoodItemToDisplay(foodName);
+               }
              });
   }
 
@@ -81,9 +158,7 @@ export class GranaryComponent implements OnInit {
   }
 
   deleteFoodItemFromDisplay(foodName: string){
-    console.log("removing bot");
     if(this.foodNameSet.has(foodName)){
-      console.log("removing bot 2");
       this.foodNameSet.delete(foodName);
       let foodNamePos = this.foodNameArray.indexOf(foodName);
       console.log(foodNamePos);
@@ -91,20 +166,23 @@ export class GranaryComponent implements OnInit {
     }
   }
 
-  onIndex(){
-    this.http.get('http://localhost:3000/granary/')
-             .subscribe(res => {
-               console.log(res);
-               console.log(typeof(res));
-               // this.food_item_list = res;
-               res.forEach(x => {
-                 this.foodNameSet.add(x.name);
-                 
-                 this.foodNameArray.push(x.name); 
-                 console.log(this.foodNameArray);
-               }
-               );
-             });
+
+  addFoodItemToWishList(foodName: string){
+    if(!this.wishListSet.has(foodName)){
+      this.wishListSet.add(foodName);
+      this.wishListArray.push(foodName); 
+    }
   }
+
+  deleteFoodItemFromWishList(foodName: string){
+    if(this.wishListSet.has(foodName)){
+      this.wishListSet.delete(foodName);
+      let foodNamePos = this.wishListArray.indexOf(foodName);
+      console.log(foodNamePos);
+      this.wishListArray.splice(foodNamePos, 1);
+    }
+  }
+
+
 
 }

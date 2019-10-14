@@ -15,12 +15,14 @@ import { LyToolbarModule } from '@alyle/ui/toolbar';
 import { LyResizingCroppingImageModule } from '@alyle/ui/resizing-cropping-images';
 import { AppRoutingModule } from './app-routing.module';
 import { GranaryComponent } from './granary/granary.component';
+import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 @NgModule({
   declarations: [
     AppComponent,
     TextBoxComponent,
     HeaderComponent,
-    GranaryComponent
+    GranaryComponent,
+    ShoppingListComponent
   ],
   imports: [
     BrowserModule,
