@@ -1,17 +1,17 @@
 <br>
 <br>
 
-<div style >
+<div class="side-by-side" id='body'>
     <div style="border: 2px dashed black;">
     	<h3>Wish List</h3>
-    	<input [(ngModel)]="wishListTextBox"(keyup.enter)="onClickwishListAdd()">
+    	<input [(ngModel)]="wishListTextBox"(keyup.enter)="onClickWishListAdd()">
 		<br>
 		<br>
 
 		<button (click)="onClickWishListAdd()" >add</button>
 		<button (click)="onClickWishListDelete()" >delete</button>
     	<ul>
-	        <li *ngFor="let item of wishListArray">
+	        <li [ngClass]="{'crossed-out': foodNameSet.has(item) &&  wishListSet.has(item)}" *ngFor="let item of wishListArray" id={{item}}>
 	            {{ item }}
 	        </li>
 	    </ul>

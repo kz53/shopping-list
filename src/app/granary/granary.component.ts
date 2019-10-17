@@ -39,7 +39,7 @@ export class GranaryComponent implements OnInit {
            this.foodNameSet.add(x.name);
            this.foodNameArray.push(x.name); 
            console.log(this.foodNameArray);
-         }     
+         }
        });
     });
   }
@@ -121,32 +121,32 @@ export class GranaryComponent implements OnInit {
   }
 
 
-  addFoodItemToDatabase(foodName: string, quantity: number, wanted: boolean){
-    //this.http.post('http://localhost:3000/articles', this.myForm.getRawValue())
-    let newFoodItem = new FoodItem();
-    newFoodItem.isPerishable = true;
-    newFoodItem.have = true;
-    newFoodItem.name = foodName; 
-    this.http.put('http://localhost:3000/granary', {name: newFoodItem.name, quantity: quantity, wanted: wanted})
-             .subscribe(res => {
-               console.log('returned');
-               console.log(res);
-               if (wanted){
-                 this.addFoodItemToWishList(foodName);
-               } else {
-                 this.addFoodItemToDisplay(foodName);
-               }
-             });
-  }
+  // addFoodItemToDatabase(foodName: string, quantity: number, wanted: boolean){
+  //   //this.http.post('http://localhost:3000/articles', this.myForm.getRawValue())
+  //   let newFoodItem = new FoodItem();
+  //   newFoodItem.isPerishable = true;
+  //   newFoodItem.have = true;
+  //   newFoodItem.name = foodName; 
+  //   this.http.put('http://localhost:3000/granary', {name: newFoodItem.name, quantity: quantity, wanted: wanted})
+  //            .subscribe(res => {
+  //              console.log('returned');
+  //              console.log(res);
+  //              if (wanted){
+  //                this.addFoodItemToWishList(foodName);
+  //              } else {
+  //                this.addFoodItemToDisplay(foodName);
+  //              }
+  //            });
+  // }
 
-  deleteFoodItemFromDatabase(foodName: string){
-    //this.http.post('http://localhost:3000/articles', this.myForm.getRawValue())
-    this.http.delete(`http://localhost:3000/granary/${foodName}`)
-             .subscribe(res => {
-               console.log(res);
-               this.deleteFoodItemFromDisplay(foodName);
-             });
-  } 
+  // deleteFoodItemFromDatabase(foodName: string){
+  //   //this.http.post('http://localhost:3000/articles', this.myForm.getRawValue())
+  //   this.http.delete(`http://localhost:3000/granary/${foodName}`)
+  //            .subscribe(res => {
+  //              console.log(res);
+  //              this.deleteFoodItemFromDisplay(foodName);
+  //            });
+  // } 
  
 
 

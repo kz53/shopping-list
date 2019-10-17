@@ -1,0 +1,9 @@
+.crossed-out {
+	color: #dddddd;
+	text-decoration: line-through;
+}
+
+.side-by-side {
+	display: flex;
+	flex-direction: row;
+}
