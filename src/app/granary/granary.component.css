@@ -6,4 +6,34 @@
 .side-by-side {
 	display: flex;
 	flex-direction: row;
+	padding: 0px;
+	margin: 0px;
+}
+
+.wish-list{
+	width:300px;
+}
+
+.pantry{
+	width:300px;
+}
+
+.x-delete{
+	opacity: .35;
+	cursor: pointer;
+}
+
+
+.x-delete:hover{
+	opacity: .15;
+
+}
+
+.switch-button{
+	opacity: .35;
+	cursor: pointer;
+}
+
+.switch-button:hover{
+	opacity: .15;
 }

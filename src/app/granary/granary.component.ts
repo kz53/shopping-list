@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FoodItem } from '../food-item';
-import { MOCKFOODLIST} from '../mock-food-list'
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -17,6 +16,10 @@ export class GranaryComponent implements OnInit {
   wishListArray = [];
   wishListTextBox = "";
 
+  deepFreezeSet = new Set();
+  deepFreezeArray = new Set();
+  showDeepFreeze = false;
+  
   constructor(private http:HttpClient) { }
 
   ngOnInit() {
@@ -40,6 +43,9 @@ export class GranaryComponent implements OnInit {
            this.foodNameArray.push(x.name); 
            console.log(this.foodNameArray);
          }
+         if (x.long_term == true ) {
+           this.deepFreezeSet.add(x.name);
+         }
        });
     });
   }
@@ -55,7 +61,10 @@ export class GranaryComponent implements OnInit {
   }
 
   onClickDelete(){
-    if(this.foodNameSet.has(this.foodTextBox)){
+    if(this.foodTextBox == ""){
+      this.updateFoodItemQuantity(this.foodNameArray[0], 0);
+    }
+    else if(this.foodNameSet.has(this.foodTextBox)){
       this.updateFoodItemQuantity(this.foodTextBox, 0);
       console.log("removed ");
     }
@@ -76,7 +85,10 @@ export class GranaryComponent implements OnInit {
   }
 
   onClickWishListDelete(){
-    if(this.wishListSet.has(this.wishListTextBox)){
+    if(this.foodTextBox == ""){
+      this.updateFoodItemWanted(this.wishListArray[0], false);
+    }
+    else if(this.wishListSet.has(this.wishListTextBox)){
       this.updateFoodItemWanted(this.wishListTextBox, false);
       console.log("removed ");
     }
@@ -85,12 +97,6 @@ export class GranaryComponent implements OnInit {
     }
     this.wishListTextBox = "";
   }
-
-  // addFoodItem(name, 1)
-  // deleteFoodItem(name, 0) 
-  // addWishList(name, true)
-  // deleteWishlist(name, false)
-  //
 
   updateFoodItemQuantity(foodName: string, quantity: number){
     this.http.put(`http://localhost:3000/granary/${foodName}`, {name: foodName, quantity: quantity})
@@ -120,6 +126,63 @@ export class GranaryComponent implements OnInit {
     });
   }
 
+  updateFoodItemDeepFreeze(foodName: string, deepFreeze: boolean){
+    this.http.put(`http://localhost:3000/granary/${foodName}`, {name: foodName, long_term: deepFreeze})
+    .subscribe(res => {
+      console.log('returned');
+      console.log(res);
+      if(deepFreeze){
+        this.moveToDeepFreeze(foodName);
+      } else {
+        this.removeFromDeepFreeze(foodName);
+      }
+      
+    });
+  }
+
+  moveToDeepFreeze(foodName: string){
+    if(!this.deepFreezeSet.has(foodName)){
+      this.deepFreezeSet.add(foodName); 
+    }
+  }
+
+  removeFromDeepFreeze(foodName: string){
+    if(this.deepFreezeSet.has(foodName)){
+      this.deepFreezeSet.delete(foodName); 
+    }
+  }
+
+  addFoodItemToDisplay(foodName: string){
+    if(!this.foodNameSet.has(foodName)){
+      this.foodNameSet.add(foodName);
+      this.foodNameArray.unshift(foodName); 
+    }
+  }
+
+  deleteFoodItemFromDisplay(foodName: string){
+    if(this.foodNameSet.has(foodName)){
+      this.foodNameSet.delete(foodName);
+      let foodNamePos = this.foodNameArray.indexOf(foodName);
+      console.log(foodNamePos);
+      this.foodNameArray.splice(foodNamePos, 1);
+    }
+  }
+
+  addFoodItemToWishList(foodName: string){
+    if(!this.wishListSet.has(foodName)){
+      this.wishListSet.add(foodName);
+      this.wishListArray.unshift(foodName); 
+    }
+  }
+
+  deleteFoodItemFromWishList(foodName: string){
+    if(this.wishListSet.has(foodName)){
+      this.wishListSet.delete(foodName);
+      let foodNamePos = this.wishListArray.indexOf(foodName);
+      console.log(foodNamePos);
+      this.wishListArray.splice(foodNamePos, 1);
+    }
+  }
 
   // addFoodItemToDatabase(foodName: string, quantity: number, wanted: boolean){
   //   //this.http.post('http://localhost:3000/articles', this.myForm.getRawValue())
@@ -147,42 +210,5 @@ export class GranaryComponent implements OnInit {
   //              this.deleteFoodItemFromDisplay(foodName);
   //            });
   // } 
- 
-
-
-  addFoodItemToDisplay(foodName: string){
-    if(!this.foodNameSet.has(foodName)){
-      this.foodNameSet.add(foodName);
-      this.foodNameArray.push(foodName); 
-    }
-  }
-
-  deleteFoodItemFromDisplay(foodName: string){
-    if(this.foodNameSet.has(foodName)){
-      this.foodNameSet.delete(foodName);
-      let foodNamePos = this.foodNameArray.indexOf(foodName);
-      console.log(foodNamePos);
-      this.foodNameArray.splice(foodNamePos, 1);
-    }
-  }
-
-
-  addFoodItemToWishList(foodName: string){
-    if(!this.wishListSet.has(foodName)){
-      this.wishListSet.add(foodName);
-      this.wishListArray.push(foodName); 
-    }
-  }
-
-  deleteFoodItemFromWishList(foodName: string){
-    if(this.wishListSet.has(foodName)){
-      this.wishListSet.delete(foodName);
-      let foodNamePos = this.wishListArray.indexOf(foodName);
-      console.log(foodNamePos);
-      this.wishListArray.splice(foodNamePos, 1);
-    }
-  }
-
-
 
 }
