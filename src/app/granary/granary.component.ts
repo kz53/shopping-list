@@ -97,7 +97,7 @@ export class GranaryComponent implements OnInit {
     .subscribe(res => {
       console.log('returned');
       console.log(res);
-      if (quantity >= 1 ) {
+      if (quantity >= 1 ) { 
         this.addFoodItemToDisplay(foodName);
       } else {
         this.deleteFoodItemFromDisplay(foodName);
