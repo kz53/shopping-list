@@ -2,9 +2,10 @@
 <br>
 
 <div class="side-by-side" id='body'>
-    <div style="border: 2px dashed black;">
+	<img src="/assets/images/granary.png" width="200px" height="220px">
+    <div class="wish-list" style="border: 2px dashed black;">
     	<h3>Wish List</h3>
-    	<input [(ngModel)]="wishListTextBox"(keyup.enter)="onClickWishListAdd()">
+    	<input [(ngModel)]="wishListTextBox"(keyup.enter)="onClickWishListAdd()" autofocus="autofocus">
 		<br>
 		<br>
 
@@ -12,25 +13,54 @@
 		<button (click)="onClickWishListDelete()" >delete</button>
     	<ul>
 	        <li [ngClass]="{'crossed-out': foodNameSet.has(item) &&  wishListSet.has(item)}" *ngFor="let item of wishListArray" id={{item}}>
-	            {{ item }}
+	            {{ item }} 
+	            <div class="x-delete" style="display:inline; margin: 5px;" (click)="updateFoodItemWanted(item, false)">X</div>
+	            <div class="switch-button" style="display:inline; margin: 5px;" 
+	            	(click)="updateFoodItemQuantity(item, 1); updateFoodItemWanted(item, false);"> <> </div>	
 	        </li>
 	    </ul>
     </div>
 
     <div style="border: 2px dashed black;">
-    	<h3>Pantry</h3>
-    	<input [(ngModel)]="foodTextBox" (keyup.enter)="onClickAdd()">
-		<br>
-		<br>
+	    <div class="pantry" >
+	    	<h3>Pantry</h3>
+	    	<input [(ngModel)]="foodTextBox" (keyup.enter)="onClickAdd()">
+			<br>
+			<br>
 
-		<button (click)="onClickAdd()" >add</button>
-		<button (click)="onClickDelete()" >delete</button>
-    	<ul>
-	        <li *ngFor="let item of foodNameArray">
-	            {{ item }}
-	        </li>
-	    </ul>
+			<button (click)="onClickAdd()" >add</button>
+			<button (click)="onClickDelete()" >delete</button>
+	    	<ul>
+		        <div *ngFor="let item of foodNameArray">
+		            <li *ngIf="!deepFreezeSet.has(item)">
+			            {{ item }} 
+			            <div class="x-delete" style="display:inline; margin: 5px;" (click)="updateFoodItemQuantity(item, 0)">X</div>
+			            <div class="switch-button" style="display:inline; margin: 5px;" 
+			            	(click)="updateFoodItemQuantity(item, 0); updateFoodItemWanted(item, true);"> <> 
+		            	</div>	     
+			            <div class="switch-button" style="display:inline; margin: 5px;" 
+			            	(click)="updateFoodItemDeepFreeze(item, true);"> V 
+		            	</div>
+		           </li>	            
+		        </div>
+		    </ul>
+	    </div>
+	    <hr>
+	    <h3 class="switch-button" (click)="showDeepFreeze = !showDeepFreeze">Deep Freeze</h3>
+	    <div class="deep-freeze" *ngIf="showDeepFreeze">
+	    	<ul>
+		        <li *ngFor="let item of deepFreezeSet">
+		            {{ item }} 
+		            <div class="x-delete" style="display:inline; margin: 5px;" (click)="updateFoodItemQuantity(item, 0)">X</div>
+		            <div class="switch-button" style="display:inline; margin: 5px;" 
+		            	(click)="updateFoodItemQuantity(item, 0); updateFoodItemWanted(item, true); updateFoodItemDeepFreeze(item, false)"> <> 
+	            	</div>	     
+		            <div class="switch-button" style="display:inline; margin: 5px;" 
+		            	(click)="updateFoodItemDeepFreeze(item, false);"> ^
+	            	</div>
+		        </li>
+		    </ul>
+	    </div>
     </div>
-    
 
 </div>
